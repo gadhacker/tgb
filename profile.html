@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Admin Portal</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles to replicate Tailwind's design */
+        :root {
+            --bs-primary: #0ea5e9;
+            --bs-primary-light: #f0f9ff;
+            --bs-primary-dark: #075985;
+            --bs-gray-dark: #1f2937;
+            --bs-gray-light: #f9fafb;
+        }
+        .bg-primary-light { background-color: var(--bs-primary-light); }
+        .bg-gray-dark { background-color: var(--bs-gray-dark); }
+        .text-primary-dark { color: var(--bs-primary-dark); }
+        .border-primary-dark { border-color: var(--bs-primary-dark); }
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+        }
+        /* Dark mode styles */
+        .dark {
+            color-scheme: dark;
+            background-color: var(--bs-gray-dark);
+        }
+        .dark .bg-light { background-color: var(--bs-gray-dark) !important; }
+        .dark .bg-white { background-color: #374151 !important; }
+        .dark .text-dark { color: #e5e7eb !important; }
+        .dark .border-light { border-color: #4b5563 !important; }
+        .dark .bg-primary-light { background-color: #1e40af !important; }
+        .dark .text-muted { color: #9ca3af !important; }
+        /* Clean design enhancements */
+        .card { border-radius: 8px; }
+        .btn { border-radius: 6px; }
+        .form-control { border-radius: 6px; }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Sidebar -->
+    <div class="d-flex">
+        <div class="d-none d-lg-block bg-white shadow-sm vh-100" style="width: 250px;">
+            <div class="p-4">
+                <h3 class="fw-bold text-primary">Admin Portal</h3>
+                <hr class="my-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_products1.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_orders.html">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_customers.html">Customers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_analytics.html">Analytics</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_promotions.html">Promotions</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_reviews.html">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin_messages.html">Messages</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="settings.html">Settings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active border-start border-primary border-3" href="profile.html">Profile</a>
+                    </li>
+                </ul>
+                <hr class="my-3">
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="sidebar-user-menu" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="rounded-circle me-2" width="32" height="32">
+                        <div>
+                            <div class="fw-medium text-dark">Admin User</div>
+                            <div class="text-muted small">Super Admin</div>
+                        </div>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="sidebar-user-menu">
+                        <li><a class="dropdown-item" href="profile.html">Your Profile</a></li>
+                        <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-grow-1">
+            <!-- Top Navigation -->
+            <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobile-menu" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation" id="mobile-menu-button">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="index.html">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_products1.html">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_orders.html">Orders</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_customers.html">Customers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_analytics.html">Analytics</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_promotions.html">Promotions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_reviews.html">Reviews</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="admin_messages.html">Messages</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="settings.html">Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link active border-bottom border-primary border-2" href="profile.html">Profile</a>
+                            </li>
+                        </ul>
+                        <div class="d-flex align-items-center">
+                            <div class="input-group me-3">
+                                <span class="input-group-text bg-light border-0"><i class="fas fa-search text-muted"></i></span>
+                                <input type="text" class="form-control bg-light border-0" placeholder="Search profile...">
+                            </div>
+                            <button class="btn" id="theme-toggle" type="button">
+                                <i class="fas fa-moon dark-hidden"></i>
+                                <i class="fas fa-sun d-none dark-d-block"></i>
+                            </button>
+                            <div class="dropdown ms-2">
+                                <button class="btn dropdown-toggle" type="button" id="user-menu-button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img class="rounded-circle" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" width="32" height="32">
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user-menu-button">
+                                    <li><a class="dropdown-item" href="profile.html">Your Profile</a></li>
+                                    <li><a class="dropdown-item" href="settings.html">Settings</a></li>
+                                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Mobile Menu -->
+            <div class="d-lg-none bg-white shadow-sm" id="mobile-menu" style="display: none;">
+                <div class="py-3">
+                    <a class="d-block px-4 py-2 text-dark" href="index.html">Dashboard</a>
+                    <a class="d-block px-4 py-2 text-dark" href="admin_products1.html">Products</a>
+                    <a class="d-block px-4 py-2 text-dark" href="admin_orders.html">Orders</a>
+                    <a class="d-block px-4 py-2 text-dark" href="admin_customers.html">Customers</a>
+                    <a class="d-block px-4 py-2 text-dark" href="admin_analytics.html">Analytics</a>
+                    <a class="d-block px-4 py-2 text-dark" href="admin_promotions.html">Promotions</a>
+                    <a class="d-block px-4 py-2 text-dark" href="admin_reviews.html">Reviews</a>
+                    <a class="d-block px-4 py-2 text-dark" href="admin_messages.html">Messages</a>
+                    <a class="d-block px-4 py-2 text-dark" href="settings.html">Settings</a>
+                    <a class="d-block px-4 py-2 bg-primary-light text-primary" href="profile.html">Profile</a>
+                </div>
+                <div class="border-top pt-4 pb-3">
+                    <div class="d-flex align-items-center px-4">
+                        <img class="rounded-circle me-3" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" width="40" height="40">
+                        <div>
+                            <div class="fw-medium text-dark">Admin User</div>
+                            <div class="text-muted small">Super Admin</div>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <a class="d-block px-4 py-2 text-dark" href="profile.html">Your Profile</a>
+                        <a class="d-block px-4 py-2 text-dark" href="settings.html">Settings</a>
+                        <a class="d-block px-4 py-2 text-dark" href="#">Sign out</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="container py-5">
+                <div class="card shadow-sm mb-5">
+                    <div class="card-body border-bottom">
+                        <h1 class="h3 fw-bold text-dark">Your Profile</h1>
+                        <p class="text-muted">View and update your account details.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 text-center">
+                                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" class="rounded-circle mb-3" width="150" height="150" alt="">
+                                <h5 class="fw-bold text-dark">Admin User</h5>
+                                <p class="text-muted">Super Admin</p>
+                                <button class="btn btn-outline-primary mb-3">Change Profile Picture</button>
+                            </div>
+                            <div class="col-md-8">
+                                <h5 class="fw-bold text-dark mb-4">Account Details</h5>
+                                <div class="mb-3">
+                                    <label for="fullName" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" value="Admin User">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" value="admin@example.com">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="role" class="form-label">Role</label>
+                                    <input type="text" class="form-control" id="role" value="Super Admin" disabled>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" value="+1234567890">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="bio" class="form-label">Bio</label>
+                                    <textarea class="form-control" id="bio" rows="4">Super Admin managing the e-commerce platform.</textarea>
+                                </div>
+                                <button class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+            document.querySelector('.fa-moon').classList.toggle('dark-hidden');
+            document.querySelector('.fa-sun').classList.toggle('d-none');
+            document.querySelector('.fa-sun').classList.toggle('dark-d-block');
+        });
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            document.querySelector('.fa-moon').classList.add('dark-hidden');
+            document.querySelector('.fa-sun').classList.remove('d-none');
+            document.querySelector('.fa-sun').classList.add('dark-d-block');
+        }
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Save Changes button placeholder
+        document.querySelector('.btn-primary').addEventListener('click', () => {
+            console.log('Save Changes clicked');
+            // Add logic to save profile details to backend
+        });
+
+        // Profile picture change placeholder
+        document.querySelector('.btn-outline-primary').addEventListener('click', () => {
+            console.log('Change Profile Picture clicked');
+            // Add logic to handle profile picture upload
+        });
+    </script>
+</body>
+</html>

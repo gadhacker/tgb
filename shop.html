@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop | Modern E-Commerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom styles */
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .price-slider .range-slider {
+            height: 5px;
+            background: #e2e8f0;
+            border-radius: 5px;
+        }
+        .price-slider .range-slider .range-slider__thumb {
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .price-slider .range-slider__range {
+            background: #3b82f6;
+        }
+        .color-swatch {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .color-swatch.active {
+            border-color: #3b82f6;
+        }
+        .quick-view-modal {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .quick-view-modal.hidden {
+            opacity: 0;
+            transform: translateY(20px);
+            pointer-events: none;
+        }
+        .skeleton-loader {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        .dark .skeleton-loader {
+            background: linear-gradient(90deg, #2d3748 25%, #4a5568 50%, #2d3748 75%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 font-sans">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <!-- Logo and navigation -->
+                <div class="flex items-center">
+                    <a href="#" class="text-xl font-bold text-blue-600 dark:text-blue-400">ShopName</a>
+                </div>
+                
+                <!-- Search bar -->
+                <div class="flex-1 max-w-xl mx-4 hidden md:block">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" id="search-input" class="block w-full py-2 pl-10 pr-3 text-sm bg-gray-100 dark:bg-gray-700 border border-transparent rounded-md focus:outline-none focus:bg-white dark:focus:bg-gray-600 focus:border-blue-500 dark:text-white" placeholder="Search products...">
+                        <div id="search-suggestions" class="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 rounded-md shadow-lg hidden">
+                            <!-- Suggestions will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- User actions -->
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 relative">
+                        <i class="fas fa-heart"></i>
+                        <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">3</span>
+                    </button>
+                    <button class="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 relative">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-blue-500 rounded-full">2</span>
+                    </button>
+                    <button id="theme-toggle" class="p-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile search -->
+    <div class="md:hidden bg-white dark:bg-gray-800 px-4 py-2">
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <i class="fas fa-search text-gray-400"></i>
+            </div>
+            <input type="text" class="block w-full py-2 pl-10 pr-3 text-sm bg-gray-100 dark:bg-gray-700 border border-transparent rounded-md focus:outline-none focus:bg-white dark:focus:bg-gray-600 focus:border-blue-500 dark:text-white" placeholder="Search products...">
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div class="flex flex-col md:flex-row gap-6">
+            <!-- Filters sidebar -->
+            <aside class="w-full md:w-64 flex-shrink-0">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 sticky top-20">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-bold text-gray-900 dark:text-white">Filters</h2>
+                        <button class="text-sm text-blue-600 dark:text-blue-400 hover:underline">Clear all</button>
+                    </div>
+                    
+                    <!-- Categories filter -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Categories</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input id="category-all" type="radio" name="category" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
+                                <label for="category-all" class="ml-2 text-sm text-gray-700 dark:text-gray-300">All Categories</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="category-electronics" type="radio" name="category" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-electronics" class="ml-2 text-sm text-gray-700 dark:text-gray-300">Electronics</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="category-clothing" type="radio" name="category" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-clothing" class="ml-2 text-sm text-gray-700 dark:text-gray-300">Clothing</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="category-home" type="radio" name="category" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="category-home" class="ml-2 text-sm text-gray-700 dark:text-gray-300">Home & Garden</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Price range filter -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Price Range</h3>
+                        <div class="price-slider mb-4">
+                            <div class="range-slider">
+                                <input type="range" class="range-slider__range" min="0" max="1000" value="200">
+                                <input type="range" class="range-slider__range" min="0" max="1000" value="600">
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+                            <span>$0</span>
+                            <span>$1000</span>
+                        </div>
+                        <div class="flex justify-between mt-2">
+                            <input type="text" class="w-20 p-1 text-sm border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-white" value="$200">
+                            <span class="self-center">to</span>
+                            <input type="text" class="w-20 p-1 text-sm border border-gray-300 dark:border-gray-600 rounded dark:bg-gray-700 dark:text-white" value="$600">
+                        </div>
+                    </div>
+                    
+                    <!-- Color filter -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Color</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <div class="color-swatch bg-red-500 active" title="Red"></div>
+                            <div class="color-swatch bg-blue-500" title="Blue"></div>
+                            <div class="color-swatch bg-green-500" title="Green"></div>
+                            <div class="color-swatch bg-yellow-500" title="Yellow"></div>
+                            <div class="color-swatch bg-black" title="Black"></div>
+                            <div class="color-swatch bg-white border border-gray-300" title="White"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Size filter -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Size</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700">XS</button>
+                            <button class="px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700">S</button>
+                            <button class="px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700">M</button>
+                            <button class="px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700">L</button>
+                            <button class="px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700">XL</button>
+                            <button class="px-3 py-1 text-xs border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700">XXL</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Brand filter -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Brand</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input id="brand-nike" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="brand-nike" class="ml-2 text-sm text-gray-700 dark:text-gray-300">Nike</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="brand-adidas" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="brand-adidas" class="ml-2 text-sm text-gray-700 dark:text-gray-300">Adidas</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="brand-apple" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="brand-apple" class="ml-2 text-sm text-gray-700 dark:text-gray-300">Apple</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="brand-samsung" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="brand-samsung" class="ml-2 text-sm text-gray-700 dark:text-gray-300">Samsung</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Availability filter -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Availability</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input id="stock-in" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" checked>
+                                <label for="stock-in" class="ml-2 text-sm text-gray-700 dark:text-gray-300">In Stock</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="stock-out" type="checkbox" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                                <label for="stock-out" class="ml-2 text-sm text-gray-700 dark:text-gray-300">Out of Stock</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Tags filter -->
+                    <div class="mb-6">
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2">Tags</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="px-2 py-1 text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full hover:bg-blue-200 dark:hover:bg-blue-800">Sale</button>
+                            <button class="px-2 py-1 text-xs bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full hover:bg-green-200 dark:hover:bg-green-800">New</button>
+                            <button class="px-2 py-1 text-xs bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full hover:bg-purple-200 dark:hover:bg-purple-800">Hot</button>
+                            <button class="px-2 py-1 text-xs bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full hover:bg-yellow-200 dark:hover:bg-yellow-800">Featured</button>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            
+            <!-- Products section -->
+            <div class="flex-1">
+                <!-- Sorting and view options -->
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-4 mb-6">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Showing <span class="font-medium">1-12</span> of <span class="font-medium">48</span> products</p>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center">
+                                <label for="sort-by" class="text-sm text-gray-600 dark:text-gray-400 mr-2">Sort by:</label>
+                                <select id="sort-by" class="text-sm border border-gray-300 dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
+                                    <option>Featured</option>
+                                    <option>Price: Low to High</option>
+                                    <option>Price: High to Low</option>
+                                    <option>Newest Arrivals</option>
+                                    <option>Best Rated</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button class="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                                    <i class="fas fa-th-large"></i>
+                                </button>
+                                <button class="p-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Flash sale banner -->
+                <div class="bg-gradient-to-r from-red-500 to-orange-500 rounded-lg shadow p-4 mb-6">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <h3 class="text-xl font-bold text-white">Flash Sale</h3>
+                            <p class="text-white">Limited time offers - ends soon!</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="bg-white bg-opacity-20 rounded px-3 py-1 text-center">
+                                <span class="text-white font-bold text-lg" id="countdown-hours">12</span>
+                                <span class="text-white text-xs block">Hours</span>
+                            </div>
+                            <div class="bg-white bg-opacity-20 rounded px-3 py-1 text-center">
+                                <span class="text-white font-bold text-lg" id="countdown-minutes">45</span>
+                                <span class="text-white text-xs block">Minutes</span>
+                            </div>
+                            <div class="bg-white bg-opacity-20 rounded px-3 py-1 text-center">
+                                <span class="text-white font-bold text-lg" id="countdown-seconds">30</span>
+                                <span class="text-white text-xs block">Seconds</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Products grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Product 1 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden product-card">
+                        <div class="relative">
+                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Product image" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                                </button>
+                            </div>
+                            <div class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                -20% OFF
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                                        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400">Basic Tee</a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Black</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400 line-through">$45.00</p>
+                                    <p class="text-lg font-bold text-gray-900 dark:text-white">$36.00</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star-half-alt text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(128)</span>
+                            </div>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-xs text-green-600 dark:text-green-400 font-medium">
+                                    <i class="fas fa-check-circle mr-1"></i> In Stock
+                                </span>
+                                <button class="text-xs text-blue-600 dark:text-blue-400 hover:underline quick-view-btn" data-product-id="1">Quick View</button>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-sm rounded flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded flex items-center justify-center">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden product-card">
+                        <div class="relative">
+                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg" alt="Product image" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <i class="fas fa-heart text-red-500"></i>
+                                </button>
+                            </div>
+                            <div class="absolute top-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                NEW
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                                        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400">Basic Tee</a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Aspen White</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-bold text-gray-900 dark:text-white">$35.00</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="far fa-star text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(64)</span>
+                            </div>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-xs text-green-600 dark:text-green-400 font-medium">
+                                    <i class="fas fa-check-circle mr-1"></i> In Stock
+                                </span>
+                                <button class="text-xs text-blue-600 dark:text-blue-400 hover:underline quick-view-btn" data-product-id="2">Quick View</button>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-sm rounded flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded flex items-center justify-center">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden product-card">
+                        <div class="relative">
+                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-03.jpg" alt="Product image" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                                        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400">Basic Tee</a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Charcoal</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-bold text-gray-900 dark:text-white">$35.00</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(256)</span>
+                            </div>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-xs text-green-600 dark:text-green-400 font-medium">
+                                    <i class="fas fa-check-circle mr-1"></i> In Stock
+                                </span>
+                                <button class="text-xs text-blue-600 dark:text-blue-400 hover:underline quick-view-btn" data-product-id="3">Quick View</button>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-sm rounded flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded flex items-center justify-center">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden product-card">
+                        <div class="relative">
+                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-04.jpg" alt="Product image" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                                </button>
+                            </div>
+                            <div class="absolute top-2 left-2 bg-purple-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                TRENDING
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                                        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400">Artwork Tee</a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Iso Dots</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-bold text-gray-900 dark:text-white">$45.00</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star-half-alt text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(192)</span>
+                            </div>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-xs text-green-600 dark:text-green-400 font-medium">
+                                    <i class="fas fa-check-circle mr-1"></i> In Stock
+                                </span>
+                                <button class="text-xs text-blue-600 dark:text-blue-400 hover:underline quick-view-btn" data-product-id="4">Quick View</button>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-sm rounded flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded flex items-center justify-center">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 5 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden product-card">
+                        <div class="relative">
+                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-featured-product-shot.jpg" alt="Product image" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                                </button>
+                            </div>
+                            <div class="absolute top-2 left-2 bg-yellow-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                BESTSELLER
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                                        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400">Basic Tee 6-Pack</a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">White, Black, Gray</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400 line-through">$240.00</p>
+                                    <p class="text-lg font-bold text-gray-900 dark:text-white">$192.00</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="far fa-star text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(84)</span>
+                            </div>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-xs text-red-600 dark:text-red-400 font-medium">
+                                    <i class="fas fa-exclamation-circle mr-1"></i> Only 2 left!
+                                </span>
+                                <button class="text-xs text-blue-600 dark:text-blue-400 hover:underline quick-view-btn" data-product-id="5">Quick View</button>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-sm rounded flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded flex items-center justify-center">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 6 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden product-card">
+                        <div class="relative">
+                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-secondary-product-shot.jpg" alt="Product image" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                                        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400">Basic Tee</a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Charcoal</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-bold text-gray-900 dark:text-white">$32.00</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(512)</span>
+                            </div>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-xs text-green-600 dark:text-green-400 font-medium">
+                                    <i class="fas fa-check-circle mr-1"></i> In Stock
+                                </span>
+                                <button class="text-xs text-blue-600 dark:text-blue-400 hover:underline quick-view-btn" data-product-id="6">Quick View</button>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-sm rounded flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded flex items-center justify-center">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 7 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden product-card">
+                        <div class="relative">
+                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-01.jpg" alt="Product image" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                                </button>
+                            </div>
+                            <div class="absolute top-2 left-2 bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                FREE SHIPPING
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                                        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400">Basic Tee</a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Black</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-lg font-bold text-gray-900 dark:text-white">$35.00</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="far fa-star text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(72)</span>
+                            </div>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-xs text-green-600 dark:text-green-400 font-medium">
+                                    <i class="fas fa-check-circle mr-1"></i> In Stock
+                                </span>
+                                <button class="text-xs text-blue-600 dark:text-blue-400 hover:underline quick-view-btn" data-product-id="7">Quick View</button>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-sm rounded flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded flex items-center justify-center">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 8 -->
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden product-card">
+                        <div class="relative">
+                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-02-tertiary-product-shot-02.jpg" alt="Product image" class="w-full h-48 object-cover">
+                            <div class="absolute top-2 right-2">
+                                <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                                </button>
+                            </div>
+                            <div class="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                                -30% OFF
+                            </div>
+                        </div>
+                        <div class="p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-900 dark:text-white">
+                                        <a href="#" class="hover:text-blue-600 dark:hover:text-blue-400">Basic Tee</a>
+                                    </h3>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">Sienna</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400 line-through">$50.00</p>
+                                    <p class="text-lg font-bold text-gray-900 dark:text-white">$35.00</p>
+                                </div>
+                            </div>
+                            <div class="mt-2 flex items-center">
+                                <div class="flex">
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star text-yellow-400"></i>
+                                    <i class="fas fa-star-half-alt text-yellow-400"></i>
+                                </div>
+                                <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(144)</span>
+                            </div>
+                            <div class="mt-3 flex justify-between items-center">
+                                <span class="text-xs text-gray-600 dark:text-gray-400 font-medium">
+                                    <i class="fas fa-truck mr-1"></i> Ships in 2-3 days
+                                </span>
+                                <button class="text-xs text-blue-600 dark:text-blue-400 hover:underline quick-view-btn" data-product-id="8">Quick View</button>
+                            </div>
+                            <div class="mt-4 grid grid-cols-2 gap-2">
+                                <button class="px-3 py-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-white text-sm rounded flex items-center justify-center">
+                                    <i class="fas fa-shopping-cart mr-2"></i> Add
+                                </button>
+                                <button class="px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded flex items-center justify-center">
+                                    Buy Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="mt-8 flex justify-center">
+                    <nav class="flex items-center space-x-2">
+                        <button class="px-3 py-1 rounded border border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="px-3 py-1 rounded border border-blue-500 bg-blue-500 text-white">1</button>
+                        <button class="px-3 py-1 rounded border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">2</button>
+                        <button class="px-3 py-1 rounded border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">3</button>
+                        <span class="px-2 text-gray-500 dark:text-gray-400">...</span>
+                        <button class="px-3 py-1 rounded border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">8</button>
+                        <button class="px-3 py-1 rounded border border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Recently Viewed -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Recently Viewed</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <!-- Product cards would be similar to the main grid -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-3">
+                <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Product" class="w-full h-32 object-cover rounded">
+                <h3 class="text-sm font-medium text-gray-900 dark:text-white mt-2">Basic Tee</h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400">$35.00</p>
+            </div>
+            <!-- More products... -->
+        </div>
+    </section>
+
+    <!-- Quick View Modal -->
+    <div id="quick-view-modal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+        <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                <div class="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75"></div>
+            </div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+            <div class="inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-4xl sm:w-full">
+                <div class="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                            <div class="flex justify-between items-start">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white" id="modal-title">
+                                    Product Quick View
+                                </h3>
+                                <button type="button" class="close-modal text-gray-400 hover:text-gray-500">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <!-- Product images carousel -->
+                                    <div class="relative">
+                                        <img id="modal-product-image" src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Product" class="w-full rounded-lg">
+                                        <div class="absolute top-2 right-2">
+                                            <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                                            </button>
+                                        </div>
+                                        <div class="absolute bottom-2 left-2 right-2 flex justify-center space-x-2">
+                                            <button class="w-2 h-2 rounded-full bg-white dark:bg-gray-300"></button>
+                                            <button class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-500"></button>
+                                            <button class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-500"></button>
+                                            <button class="w-2 h-2 rounded-full bg-gray-300 dark:bg-gray-500"></button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-4 grid grid-cols-4 gap-2">
+                                        <button class="border-2 border-blue-500 rounded">
+                                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-01.jpg" alt="Thumbnail" class="w-full h-16 object-cover">
+                                        </button>
+                                        <button class="border border-gray-300 dark:border-gray-600 rounded">
+                                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-02.jpg" alt="Thumbnail" class="w-full h-16 object-cover">
+                                        </button>
+                                        <button class="border border-gray-300 dark:border-gray-600 rounded">
+                                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-03.jpg" alt="Thumbnail" class="w-full h-16 object-cover">
+                                        </button>
+                                        <button class="border border-gray-300 dark:border-gray-600 rounded">
+                                            <img src="https://tailwindui.com/img/ecommerce-images/product-page-01-related-product-04.jpg" alt="Thumbnail" class="w-full h-16 object-cover">
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white" id="modal-product-name">Basic Tee</h2>
+                                    <div class="mt-2 flex items-center">
+                                        <div class="flex">
+                                            <i class="fas fa-star text-yellow-400"></i>
+                                            <i class="fas fa-star text-yellow-400"></i>
+                                            <i class="fas fa-star text-yellow-400"></i>
+                                            <i class="fas fa-star text-yellow-400"></i>
+                                            <i class="far fa-star text-yellow-400"></i>
+                                        </div>
+                                        <span class="text-sm text-gray-500 dark:text-gray-400 ml-2">(128 reviews)</span>
+                                    </div>
+                                    <div class="mt-4">
+                                        <p class="text-2xl font-bold text-gray-900 dark:text-white">$35.00</p>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Including VAT</p>
+                                    </div>
+                                    <div class="mt-4">
+                                        <p class="text-sm text-gray-600 dark:text-gray-300">The Basic Tee is a classic wardrobe staple that will never go out of style. Made from 100% organic cotton, it's comfortable, durable, and perfect for any occasion.</p>
+                                    </div>
+                                    <div class="mt-6">
+                                        <h3 class="text-sm font-medium text-gray-900 dark:text-white">Color</h3>
+                                        <div class="mt-2 flex space-x-2">
+                                            <button class="color-swatch bg-black active" title="Black"></button>
+                                            <button class="color-swatch bg-gray-500" title="Gray"></button>
+                                            <button class="color-swatch bg-blue-500" title="Blue"></button>
+                                        </div>
+                                    </div>
+                                    <div class="mt-6">
+                                        <h3 class="text-sm font-medium text-gray-900 dark:text-white">Size</h3>
+                                        <div class="mt-2 grid grid-cols-4 gap-2">
+                                            <button class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">XS</button>
+                                            <button class="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-100 dark:hover:bg-gray-700 text-sm">S</button>
+                                            <button class="px-3 py-2 border border-blue-500 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded text-sm">M</

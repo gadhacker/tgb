@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Modern E-Commerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans dark:bg-gray-900">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="hidden md:flex md:flex-shrink-0">
+            <div class="flex flex-col w-64 bg-indigo-800 text-white dark:bg-gray-800">
+                <div class="flex items-center justify-between h-16 px-4 border-b border-indigo-700 dark:border-gray-700">
+                    <span class="text-xl font-bold">Admin Portal</span>
+                    <button id="theme-toggle" class="p-1 rounded-full focus:outline-none">
+                        <i class="fas fa-moon text-gray-300" id="theme-icon"></i>
+                    </button>
+                </div>
+                <div class="flex flex-col flex-grow px-4 py-4 overflow-y-auto">
+                    <div class="space-y-1">
+                        <a href="index.html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md bg-indigo-900 text-white">
+                            <i class="fas fa-tachometer-alt mr-3"></i>
+                            Dashboard
+                        </a>
+                        <a href="ADMIN_PRODUCTS1.HTML" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-box-open mr-3"></i>
+                            Products
+                        </a>
+                        <a href="admin_orders.html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-shopping-cart mr-3"></i>
+                            Orders
+                        </a>
+                        <a href="admin_customers.html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-users mr-3"></i>
+                            Customers
+                        </a>
+                        <a href="admin_analytics.html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-chart-line mr-3"></i>
+                            Analytics
+                        </a>
+                        <a href="ADMIN_PROMOTIONS.HTML" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-tags mr-3"></i>
+                            Promotions
+                        </a>
+                        <a href="admin_reviews (1).html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-comment mr-3"></i>
+                            Reviews
+                        </a>
+                        <a href="admin_masseges.html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-envelope mr-3"></i>
+                            Messages
+                        </a>
+                        <a href="#" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-cog mr-3"></i>
+                            Settings
+                        </a>
+                    </div>
+                    <div class="mt-auto mb-4">
+                        <div class="p-2 bg-indigo-700 rounded-md dark:bg-gray-700">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium">Admin User</p>
+                                    <p class="text-xs font-medium text-indigo-200 dark:text-gray-300">Super Admin</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- Analytics Content -->
+            <div class="flex-1 overflow-auto p-6">
+                <div class="mb-6 flex justify-between items-center">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Analytics Dashboard</h1>
+                        <p class="text-gray-600 dark:text-gray-300">Comprehensive insights into your store performance</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <div class="relative">
+                            <select class="block appearance-none bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>This month</option>
+                                <option>Last month</option>
+                                <option>Custom range</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 dark:text-gray-300">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md flex items-center">
+                            <i class="fas fa-download mr-2"></i> Export
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tabs Navigation -->
+                <div class="mb-6 border-b border-gray-200 dark:border-gray-700">
+                    <nav class="flex space-x-8">
+                        <button class="py-4 px-1 border-b-2 font-medium text-sm border-indigo-500 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400">
+                            Sales
+                        </button>
+                        <button class="py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+                            Orders
+                        </button>
+                        <button class="py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+                            Customers
+                        </button>
+                        <button class="py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+                            Products
+                        </button>
+                        <button class="py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+                            Traffic
+                        </button>
+                        <button class="py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300">
+                            Payments
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Sales Analytics Section -->
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Sales Analytics</h2>
+                    
+                    <!-- Sales KPI Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Revenue</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">$24,780</p>
+                                    <p class="text-sm text-green-500 flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i> 12.5% from last week
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-200">
+                                    <i class="fas fa-dollar-sign text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Avg. Order Value</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">$89.50</p>
+                                    <p class="text-sm text-green-500 flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i> 5.2% from last week
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-200">
+                                    <i class="fas fa-shopping-bag text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Repeat Purchase Rate</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">24.3%</p>
+                                    <p class="text-sm text-green-500 flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i> 3.1% from last week
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-200">
+                                    <i class="fas fa-redo text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Conversion Rate</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">3.2%</p>
+                                    <p class="text-sm text-red-500 flex items-center">
+                                        <i class="fas fa-arrow-down mr-1"></i> 0.4% from last week
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-200">
+                                    <i class="fas fa-exchange-alt text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sales Charts Row -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                        <!-- Sales Trend Chart -->
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Sales Trend</h3>
+                                <div class="flex space-x-2">
+                                    <button class="px-3 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-md dark:bg-indigo-900 dark:text-indigo-200">Daily</button>
+                                    <button class="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-300">Weekly</button>
+                                    <button class="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-300">Monthly</button>
+                                </div>
+                            </div>
+                            <div class="h-80">
+                                <canvas id="salesTrendChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Revenue by Category -->
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Revenue by Category</h3>
+                            <div class="h-80">
+                                <canvas id="revenueCategoryChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Products & Payment Methods -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Top Selling Products -->
+                        <div class="bg-white rounded-lg shadow dark:bg-gray-800">
+                            <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Top Selling Products</h3>
+                            </div>
+                            <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                                <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <div class="flex items-center">
+                                        <div class="flex-shrink-0 h-10 w-10 rounded-md bg-indigo-100 flex items-center justify-center dark:bg-indigo-900">
+                                            <i class="fas fa-box text-indigo-600 dark:text-indigo-300"></i>
+                                        </div>
+                                        <div class="ml-4 flex-1">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Wireless Headphones</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">Electronics</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">$12,450</p>
+                                            <p class="text-xs text-green-500">+15.2%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- More products... -->
+                            </div>
+                        </div>
+
+                        <!-- Revenue by Payment Method -->
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Revenue by Payment Method</h3>
+                            <div class="h-64">
+                                <canvas id="paymentMethodChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Analytics Section -->
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Order Analytics</h2>
+                    
+                    <!-- Order KPI Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Orders</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">1,248</p>
+                                    <p class="text-sm text-green-500 flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i> 8.2% from last week
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-200">
+                                    <i class="fas fa-shopping-cart text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Avg. Fulfillment Time</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">2.4 days</p>
+                                    <p class="text-sm text-green-500 flex items-center">
+                                        <i class="fas fa-arrow-down mr-1"></i> 12% faster
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-200">
+                                    <i class="fas fa-clock text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Return/Refund Rate</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">4.7%</p>
+                                    <p class="text-sm text-red-500 flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i> 1.2% from last week
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-200">
+                                    <i class="fas fa-undo text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">On-Time Delivery</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">92.5%</p>
+                                    <p class="text-sm text-green-500 flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i> 3.8% from last week
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-200">
+                                    <i class="fas fa-truck text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Charts Row -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Order Status Chart -->
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Order Status Distribution</h3>
+                            <div class="h-80">
+                                <canvas id="orderStatusChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Order Volume Over Time -->
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Order Volume Over Time</h3>
+                                <div class="flex space-x-2">
+                                    <button class="px-3 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-md dark:bg-indigo-900 dark:text-indigo-200">Day</button>
+                                    <button class="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-300">Week</button>
+                                    <button class="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-300">Month</button>
+                                </div>
+                            </div>
+                            <div class="h-80">
+                                <canvas id="orderVolumeChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Analytics Section -->
+                <div class="mb-8">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Customer Analytics</h2>
+                    
+                    <!-- Customer KPI Cards -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Customers</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">8,742</p>
+                                    <p class="text-sm text-green-500 flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i> 186 new this week
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-200">
+                                    <i class="fas fa-users text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Customers</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">1,245</p>
+                                    <p class="text-sm text-gray-500">Logged in last 7 days</p>
+                                </div>
+                                <div class="p-3 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-200">
+                                    <i class="fas fa-user-check text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Abandoned Carts</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">327</p>
+                                    <p class="text-sm text-red-500 flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i> 12% increase
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-200">
+                                    <i class="fas fa-shopping-cart text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Customer Lifetime Value</p>
+                                    <p class="text-2xl font-bold text-gray-800 dark:text-white">$245.60</p>
+                                    <p class="text-sm text-green-500 flex items-center">
+                                        <i class="fas fa-arrow-up mr-1"></i> 8.5% from last quarter
+                                    </p>
+                                </div>
+                                <div class="p-3 rounded-full bg-purple-100 text-purple-600 dark:bg-purple-900 dark:text-purple-200">
+                                    <i class="fas fa-chart-line text-xl"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Customer Charts Row -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <!-- Customer Growth Chart -->
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Customer Growth</h3>
+                            <div class="h-80">
+                                <canvas id="customerGrowthChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Customers by Location -->
+                        <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Customers by Location</h3>
+                            <div class="h-80">
+                                <div id="customerLocationChart" class="h-full w-full"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- High Value Customers -->
+                    <div class="mt-6 bg-white rounded-lg shadow dark:bg-gray-800">
+                        <div class="p-6 border-b border-gray-200 dark:border-gray-700">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">High Value Customers</h3>
+                        </div>
+                        <div class="divide-y divide-gray-200 dark:divide-gray-700">
+                            <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-700">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-shrink-0">
+                                            <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Michael Johnson</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">Joined 5 months ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-sm font-medium text-gray-900 dark:text-white">$2,450</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">5 orders</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- More customers... -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle (same as admin.html)
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+
+        themeToggle.addEventListener('click', function() {
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            }
+        });
+
+        // Sales Trend Chart
+        const salesTrendCtx = document.getElementById('salesTrendChart').getContext('2d');
+        const salesTrendChart = new Chart(salesTrendCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [3500, 4200, 3800, 5100, 4900, 6200, 5800],
+                    backgroundColor: 'rgba(79, 70, 229, 0.05)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false,
+                            color: function(context) {
+                                if (context.tick.value === 0) {
+                                    return 'rgba(0, 0, 0, 0)';
+                                }
+                                return 'rgba(229, 231, 235, 1)';
+                            }
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Revenue by Category Chart
+        const revenueCategoryCtx = document.getElementById('revenueCategoryChart').getContext('2d');
+        const revenueCategoryChart = new Chart(revenueCategoryCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Electronics', 'Fashion', 'Home & Garden', 'Books', 'Toys'],
+                datasets: [{
+                    data: [45, 25, 15, 10, 5],
+                    backgroundColor: [
+                        'rgba(79, 70, 229, 0.8)',
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(139, 92, 246, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(79, 70, 229, 1)',
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(16, 185, 129, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(139, 92, 246, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#6B7280'
+                        }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+
+        // Payment Method Chart
+        const paymentMethodCtx = document.getElementById('paymentMethodChart').getContext('2d');
+        const paymentMethodChart = new Chart(paymentMethodCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Credit Card', 'Mobile Money', 'PayPal', 'Bank Transfer', 'Cash on Delivery'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [12000, 8000, 3500, 1000, 500],
+                    backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Order Status Chart
+        const orderStatusCtx = document.getElementById('orderStatusChart').getContext('2d');
+        const orderStatusChart = new Chart(orderStatusCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Completed', 'Processing', 'Shipped', 'Pending', 'Cancelled'],
+                datasets: [{
+                    data: [45, 20, 15, 15, 5],
+                    backgroundColor: [
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(139, 92, 246, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(239, 68, 68, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(16, 185, 129, 1)',
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(139, 92, 246, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(239, 68, 68, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: {
+                            color: '#6B7280'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Order Volume Chart
+        const orderVolumeCtx = document.getElementById('orderVolumeChart').getContext('2d');
+        const orderVolumeChart = new Chart(orderVolumeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'Orders',
+                    data: [320, 290, 390, 410, 350, 340, 420],
+                    backgroundColor: 'rgba(79, 70, 229, 0.8)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Customer Growth Chart
+        const customerGrowthCtx = document.getElementById('customerGrowthChart').getContext('2d');
+        const customerGrowthChart = new Chart(customerGrowthCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'New Customers',
+                    data: [120, 150, 180, 210, 190, 230, 260],
+                    backgroundColor: 'rgba(79, 70, 229, 0.05)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false,
+                            color: function(context) {
+                                if (context.tick.value === 0) {
+                                    return 'rgba(0, 0, 0, 0)';
+                                }
+                                return 'rgba(229, 231, 235, 1)';
+                            }
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Customer Location Map (using ApexCharts)
+        const customerLocationOptions = {
+            series: [{
+                name: 'Customers',
+                data: [
+                    { x: 'US', y: 1250 },
+                    { x: 'UK', y: 850 },
+                    { x: 'Canada', y: 650 },
+                    { x: 'Australia', y: 450 },
+                    { x: 'Germany', y: 400 },
+                    { x: 'France', y: 350 },
+                    { x: 'Japan', y: 300 },
+                    { x: 'Brazil', y: 250 },
+                    { x: 'India', y: 200 },
+                    { x: 'South Africa', y: 150 }
+                ]
+            }],
+            chart: {
+                type: 'treemap',
+                height: '100%'
+            },
+            legend: {
+                show: false
+            },
+            colors: [
+                '#3B82F6',
+                '#1D4ED8',
+                '#2563EB',
+                '#1E40AF',
+                '#1E3A8A'
+            ],
+            plotOptions: {
+                treemap: {
+                    distributed: true,
+                    enableShades: false
+                }
+            }
+        };
+
+        const customerLocationChart = new ApexCharts(document.querySelector("#customerLocationChart"), customerLocationOptions);
+        customerLocationChart.render();
+
+        // Tab functionality
+        const tabs = document.querySelectorAll('[role="tab"]');
+        const tabPanels = document.querySelectorAll('[role="tabpanel"]');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Hide all tab panels
+                tabPanels.forEach(panel => {
+                    panel.classList.add('hidden');
+                });
+
+                // Deactivate all tabs
+                tabs.forEach(t => {
+                    t.classList.remove('border-indigo-500', 'text-indigo-600', 'dark:text-indigo-400', 'dark:border-indigo-400');
+                    t.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300', 'dark:text-gray-400', 'dark:hover:text-gray-300');
+                });
+
+                // Activate the clicked tab
+                tab.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300', 'dark:text-gray-400', 'dark:hover:text-gray-300');
+                tab.classList.add('border-indigo-500', 'text-indigo-600', 'dark:text-indigo-400', 'dark:border-indigo-400');
+
+                // Show the selected panel
+                const panelId = tab.getAttribute('aria-controls');
+                document.getElementById(panelId).classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

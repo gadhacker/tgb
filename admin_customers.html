@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Modern E-Commerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans dark:bg-gray-900">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <div class="hidden md:flex md:flex-shrink-0">
+            <div class="flex flex-col w-64 bg-indigo-800 text-white dark:bg-gray-800">
+                <div class="flex items-center justify-between h-16 px-4 border-b border-indigo-700 dark:border-gray-700">
+                    <span class="text-xl font-bold">Admin Portal</span>
+                    <button id="theme-toggle" class="p-1 rounded-full focus:outline-none">
+                        <i class="fas fa-moon text-gray-300" id="theme-icon"></i>
+                    </button>
+                </div>
+                <div class="flex flex-col flex-grow px-4 py-4 overflow-y-auto">
+                    <div class="space-y-1">
+                        <a href="admin_dashboard.html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-tachometer-alt mr-3"></i>
+                            Dashboard
+                        </a>
+                        <a href="ADMIN_PRODUCTS1.HTML" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-box-open mr-3"></i>
+                            Products
+                        </a>
+                        <a href="admin_orders.html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-shopping-cart mr-3"></i>
+                            Orders
+                        </a>
+                        <a href="admin_customers.html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md bg-indigo-900 text-white">
+                            <i class="fas fa-users mr-3"></i>
+                            Customers
+                        </a>
+                        <a href="admin_analytics.html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-chart-line mr-3"></i>
+                            Analytics
+                        </a>
+                        <a href="ADMIN_PROMOTIONS.HTML" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-tags mr-3"></i>
+                            Promotions
+                        </a>
+                        <a href="admin_reviews (1).html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-comment mr-3"></i>
+                            Reviews
+                        </a>
+                        <a href="admin_masseges.html" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-envelope mr-3"></i>
+                            Messages
+                        </a>
+                        <a href="#" class="flex items-center px-2 py-3 text-sm font-medium rounded-md hover:bg-indigo-700 text-white">
+                            <i class="fas fa-cog mr-3"></i>
+                            Settings
+                        </a>
+                    </div>
+                    <div class="mt-auto mb-4">
+                        <div class="p-2 bg-indigo-700 rounded-md dark:bg-gray-700">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium">Admin User</p>
+                                    <p class="text-xs font-medium text-indigo-200 dark:text-gray-300">Super Admin</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex flex-col flex-1 overflow-hidden">
+            <!-- Top Navigation -->
+            <div class="flex items-center justify-between h-16 px-4 bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                <div class="flex items-center">
+                    <button class="md:hidden text-gray-500 dark:text-gray-400 focus:outline-none">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div class="relative mx-4">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        <input type="text" class="block w-full py-2 pl-10 pr-3 text-sm bg-gray-100 border border-transparent rounded-md focus:outline-none focus:bg-white focus:border-indigo-500 dark:bg-gray-700 dark:text-white" placeholder="Search...">
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none dark:hover:text-gray-300 relative">
+                        <i class="fas fa-bell"></i>
+                        <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+                    </button>
+                    <button class="p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none dark:hover:text-gray-300">
+                        <i class="fas fa-question-circle"></i>
+                    </button>
+                    <div class="relative">
+                        <button class="flex items-center space-x-2 focus:outline-none">
+                            <span class="text-sm font-medium dark:text-white">Admin User</span>
+                            <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="flex-1 overflow-auto p-6">
+                <!-- Customer Management Section -->
+                <div class="mb-6">
+                    <h1 class="text-2xl font-bold text-gray-800 dark:text-white">Customer Management</h1>
+                    <p class="text-gray-600 dark:text-gray-300">Manage your store's customers, view profiles, and analyze customer behavior.</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Customers</p>
+                                <p class="text-2xl font-bold text-gray-800 dark:text-white">1,248</p>
+                                <p class="text-sm text-green-500 flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 12.5% from last month
+                                </p>
+                            </div>
+                            <div class="p-3 rounded-full bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-200">
+                                <i class="fas fa-users text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">New Customers</p>
+                                <p class="text-2xl font-bold text-gray-800 dark:text-white">186</p>
+                                <p class="text-sm text-green-500 flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 8.2% from last week
+                                </p>
+                            </div>
+                            <div class="p-3 rounded-full bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-200">
+                                <i class="fas fa-user-plus text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">VIP Customers</p>
+                                <p class="text-2xl font-bold text-gray-800 dark:text-white">42</p>
+                                <p class="text-sm text-green-500 flex items-center">
+                                    <i class="fas fa-arrow-up mr-1"></i> 5.7% from last quarter
+                                </p>
+                            </div>
+                            <div class="p-3 rounded-full bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-200">
+                                <i class="fas fa-crown text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Banned Accounts</p>
+                                <p class="text-2xl font-bold text-gray-800 dark:text-white">14</p>
+                                <p class="text-sm text-red-500 flex items-center">
+                                    <i class="fas fa-arrow-down mr-1"></i> 2 new this week
+                                </p>
+                            </div>
+                            <div class="p-3 rounded-full bg-red-100 text-red-600 dark:bg-red-900 dark:text-red-200">
+                                <i class="fas fa-ban text-xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Table -->
+                <div class="bg-white rounded-lg shadow dark:bg-gray-800 mb-6">
+                    <div class="p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Customer List</h2>
+                        <div class="flex space-x-2">
+                            <button class="px-3 py-1 text-sm bg-indigo-600 text-white rounded-md hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 flex items-center">
+                                <i class="fas fa-plus mr-2"></i> Add Customer
+                            </button>
+                            <button class="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 flex items-center">
+                                <i class="fas fa-file-export mr-2"></i> Export
+                            </button>
+                            <div class="relative">
+                                <button class="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 flex items-center">
+                                    <i class="fas fa-filter mr-2"></i> Filter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Customer ID</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Name</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Email</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Phone</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Orders</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Total Spend</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
+                                <!-- Sample Customer 1 -->
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">#CUS-1001</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/32.jpg" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900 dark:text-white">John Smith</div>
+                                                <div class="text-sm text-gray-500 dark:text-gray-400">Premium Member</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">john.smith@example.com</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">+1 555-123-4567</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">24</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">$4,289.50</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="flex justify-end space-x-2">
+                                            <button class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 view-customer" data-customer-id="1001" title="View Profile">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300" title="Ban">
+                                                <i class="fas fa-ban"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Sample Customer 2 -->
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">#CUS-1002</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/44.jpg" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900 dark:text-white">Sarah Johnson</div>
+                                                <div class="text-sm text-gray-500 dark:text-gray-400">New Customer</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">sarah.j@example.com</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">+1 555-987-6543</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">$287.99</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="flex justify-end space-x-2">
+                                            <button class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 view-customer" data-customer-id="1002" title="View Profile">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300" title="Ban">
+                                                <i class="fas fa-ban"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Sample Customer 3 -->
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">#CUS-1003</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/men/75.jpg" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900 dark:text-white">Michael Brown</div>
+                                                <div class="text-sm text-gray-500 dark:text-gray-400">VIP Member</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">michael.b@example.com</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">+1 555-456-7890</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">42</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">$8,742.15</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="flex justify-end space-x-2">
+                                            <button class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 view-customer" data-customer-id="1003" title="View Profile">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-yellow-600 hover:text-yellow-900 dark:text-yellow-400 dark:hover:text-yellow-300" title="Ban">
+                                                <i class="fas fa-ban"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                
+                                <!-- Sample Customer 4 -->
+                                <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">#CUS-1004</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-10 w-10">
+                                                <img class="h-10 w-10 rounded-full" src="https://randomuser.me/api/portraits/women/68.jpg" alt="">
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900 dark:text-white">Emily Davis</div>
+                                                <div class="text-sm text-gray-500 dark:text-gray-400">Inactive</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">emily.d@example.com</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">+1 555-789-0123</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">7</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">$1,245.75</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Banned</span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="flex justify-end space-x-2">
+                                            <button class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 view-customer" data-customer-id="1004" title="View Profile">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300" title="Edit">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-green-600 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300" title="Activate">
+                                                <i class="fas fa-check-circle"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 dark:bg-gray-800 dark:border-gray-700 sm:px-6">
+                        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                            <div>
+                                <p class="text-sm text-gray-700 dark:text-gray-300">
+                                    Showing <span class="font-medium">1</span> to <span class="font-medium">4</span> of <span class="font-medium">124</span> customers
+                                </p>
+                            </div>
+                            <div>
+                                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
+                                        <span class="sr-only">Previous</span>
+                                        <i class="fas fa-chevron-left"></i>
+                                    </a>
+                                    <a href="#" aria-current="page" class="z-10 bg-indigo-50 border-indigo-500 text-indigo-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium dark:bg-indigo-900 dark:border-indigo-700 dark:text-indigo-200">
+                                        1
+                                    </a>
+                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
+                                        2
+                                    </a>
+                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
+                                        3
+                                    </a>
+                                    <span class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+                                        ...
+                                    </span>
+                                    <a href="#" class="bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
+                                        8
+                                    </a>
+                                    <a href="#" class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-600">
+                                        <span class="sr-only">Next</span>
+                                        <i class="fas fa-chevron-right"></i>
+                                    </a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Analytics -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <!-- Customer Growth Chart -->
+                    <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-semibold text-gray-800 dark:text-white">Customer Growth</h2>
+                            <div class="flex space-x-2">
+                                <button class="px-3 py-1 text-xs bg-indigo-100 text-indigo-700 rounded-md dark:bg-indigo-900 dark:text-indigo-200">Week</button>
+                                <button class="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-300">Month</button>
+                                <button class="px-3 py-1 text-xs bg-gray-100 text-gray-700 rounded-md dark:bg-gray-700 dark:text-gray-300">Year</button>
+                            </div>
+                        </div>
+                        <div class="h-64">
+                            <canvas id="customerChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Top Customers -->
+                    <div class="bg-white rounded-lg shadow p-6 dark:bg-gray-800">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Top Customers</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-md bg-indigo-100 flex items-center justify-center dark:bg-indigo-900">
+                                    <i class="fas fa-crown text-indigo-600 dark:text-indigo-300"></i>
+                                </div>
+                                <div class="ml-4 flex-1">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">Michael Brown</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">42 orders • $8,742.15</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">VIP</p>
+                                    <p class="text-xs text-green-500">+22.1%</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-md bg-blue-100 flex items-center justify-center dark:bg-blue-900">
+                                    <i class="fas fa-user-tie text-blue-600 dark:text-blue-300"></i>
+                                </div>
+                                <div class="ml-4 flex-1">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">John Smith</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">24 orders • $4,289.50</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">Premium</p>
+                                    <p class="text-xs text-green-500">+15.2%</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-md bg-green-100 flex items-center justify-center dark:bg-green-900">
+                                    <i class="fas fa-user text-green-600 dark:text-green-300"></i>
+                                </div>
+                                <div class="ml-4 flex-1">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">Robert Johnson</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">18 orders • $3,245.80</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">Regular</p>
+                                    <p class="text-xs text-green-500">+8.6%</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-md bg-yellow-100 flex items-center justify-center dark:bg-yellow-900">
+                                    <i class="fas fa-user-clock text-yellow-600 dark:text-yellow-300"></i>
+                                </div>
+                                <div class="ml-4 flex-1">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">Sarah Williams</p>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400">12 orders • $2,187.30</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">New</p>
+                                    <p class="text-xs text-red-500">-3.2%</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Location Map -->
+                <div class="bg-white rounded-lg shadow p-6 mb-6 dark:bg-gray-800">
+                    <h2 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Customer Locations</h2>
+                    <div class="bg-gray-100 rounded-lg p-4 h-64 flex items-center justify-center dark:bg-gray-700">
+                        <div class="text-center">
+                            <i class="fas fa-globe-americas text-4xl text-gray-400 mb-2 dark:text-gray-500"></i>
+                            <p class="text-gray-500 dark:text-gray-400">Customer location map visualization would appear here</p>
+                            <p class="text-xs text-gray-400 dark:text-gray-500">Integration with Mapbox or Google Maps</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+                        <div class="bg-gray-50 p-3 rounded-lg dark:bg-gray-700">
+                            <p class="text-sm text-gray-500 dark:text-gray-400">United States</p>
+                            <p class="text-lg font-bold text-gray-800 dark:text-white">68%</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg dark:bg-gray-700">
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Canada</p>
+                            <p class="text-lg font-bold text-gray-800 dark:text-white">12%</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg dark:bg-gray-700">
+                            <p class="text-sm text-gray-500 dark:text-gray-400">United Kingdom</p>
+                            <p class="text-lg font-bold text-gray-800 dark:text-white">8%</p>
+                        </div>
+                        <div class="bg-gray-50 p-3 rounded-lg dark:bg-gray-700">
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Other</p>
+                            <p class="text-lg font-bold text-gray-800 dark:text-white">12%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Profile Modal -->
+    <div id="customerModal" class="fixed inset-0 overflow-y-auto z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <!-- Background overlay -->
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+            
+            <!-- Modal panel -->
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-5xl sm:w-full dark:bg-gray-800">
+                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4 dark:bg-gray-800">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:text-left w-full">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white" id="modal-title">
+                                    Customer Profile: <span class="text-indigo-600">#CUS-1001</span>
+                                </h3>
+                                <button type="button" class="close-modal text-gray-400 hover:text-gray-500 dark:text-gray-300 dark:hover:text-gray-200">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                            
+                            <!-- Customer Profile Tabs -->
+                            <div class="mt-6">
+                                <div class="border-b border-gray-200 dark:border-gray-700">
+                                    <nav class="-mb-px flex space-x-8 overflow-x-auto">
+                                        <a href="#" class="customer-tab active border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm dark:text-indigo-400 dark:border-indigo-400">Overview</a>
+                                        <a href="#" class="customer-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm dark:text-gray-400 dark:hover:text-gray-300">Orders</a>
+                                        <a href="#" class="customer-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm dark:text-gray-400 dark:hover:text-gray-300">Activity</a>
+                                        <a href="#" class="customer-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm dark:text-gray-400 dark:hover:text-gray-300">Support</a>
+                                        <a href="#" class="customer-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm dark:text-gray-400 dark:hover:text-gray-300">Wallet</a>
+                                        <a href="#" class="customer-tab border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm dark:text-gray-400 dark:hover:text-gray-300">Notes</a>
+                                    </nav>
+                                </div>
+                                
+                                <!-- Tab Content -->
+                                <div class="py-6">
+                                    <!-- Overview Tab Content -->
+                                    <div id="overview-tab" class="customer-tab-content">
+                                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                            <!-- Customer Info -->
+                                            <div class="col-span-1">
+                                                <div class="bg-gray-50 rounded-lg p-4 dark:bg-gray-700">
+                                                    <div class="flex flex-col items-center">
+                                                        <img class="h-24 w-24 rounded-full mb-4" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer Avatar">
+                                                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">John Smith</h3>
+                                                        <p class="text-sm text-gray-500 dark:text-gray-400">Premium Member</p>
+                                                        <div class="mt-4 flex space-x-2">
+                                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Active</span>
+                                                            <span class="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Verified</span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="mt-6 space-y-4">
+                                                        <div class="flex items-center">
+                                                            <i class="fas fa-envelope text-gray-400 mr-2 dark:text-gray-300"></i>
+                                                            <span class="text-sm text-gray-600 dark:text-gray-300">john.smith@example.com</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <i class="fas fa-phone text-gray-400 mr-2 dark:text-gray-300"></i>
+                                                            <span class="text-sm text-gray-600 dark:text-gray-300">+1 555-123-4567</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <i class="fas fa-calendar-alt text-gray-400 mr-2 dark:text-gray-300"></i>
+                                                            <span class="text-sm text-gray-600 dark:text-gray-300">Joined: Jan 12, 2022</span>
+                                                        </div>
+                                                        <div class="flex items-center">
+                                                            <i class="fas fa-sign-in-alt text-gray-400 mr-2 dark:text-gray-300"></i>
+                                                            <span class="text-sm text-gray-600 dark:text-gray-300">Last login: 2 hours ago</span>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="mt-6">
+                                                        <h4 class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Account Actions</h4>
+                                                        <div class="grid grid-cols-2 gap-2">
+                                                            <button class="text-xs bg-indigo-100 text-indigo-700 py-1 px-2 rounded hover:bg-indigo-200 dark:bg-indigo-900 dark:text-indigo-200 dark:hover:bg-indigo-800">
+                                                                <i class="fas fa-key mr-1"></i> Reset Password
+                                                            </button>
+                                                            <button class="text-xs bg-yellow-100 text-yellow-700 py-1 px-2 rounded hover:bg-yellow-200 dark:bg-yellow-900 dark:text-yellow-200 dark:hover:bg-yellow-800">
+                                                                <i class="fas fa-ban mr-1"></i> Ban Account
+                                                            </button>
+                                                            <button class="text-xs bg-blue-100 text-blue-700 py-1 px-2 rounded hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-200 dark:hover:bg-blue-800">
+                                                                <i class="fas fa-envelope mr-1"></i> Send Email
+                                                            </button>
+                                                            <button class="text-xs bg-red-100 text-red-700 py-1 px-2 rounded hover:bg-red-200 dark:bg-red-900 dark:text-red-200 dark:hover:bg-red-800">
+                                                                <i class="fas fa-trash mr-1"></i> Delete Account
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Stats -->
+                                            <div class="col-span-1">
+                                                <div class="bg-gray-50 rounded-lg p-4 dark:bg-gray-700">
+                                                    <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">Customer Stats</h4>
+                                                    
+                                                    <div class="space-y-4">
+                                                        <div>
+                                                            <p class="text-sm text-gray-500 dark:text-gray-400">Total Orders</p>
+                                                            <p class="text-xl font-semibold text-gray-900 dark:text-white">24</p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-sm text-gray-500 dark:text-gray-400">Total Spend</p>
+                                                            <p class="text-xl font-semibold text-gray-900 dark:text-white">$4,289.50</p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-sm text-gray-500 dark:text-gray-400">Average Order Value</p>
+                                                            <p class="text-xl font-semibold text-gray-900 dark:text-white">$178.73</p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="text-sm text-gray-500 dark:text-gray-400">Last Order</p>
+                                                            <p class="text-sm font-semibold text-gray-900 dark:text-white">#ORD-2023-024 (2 days ago)</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="bg-gray-50 rounded-lg p-4 mt-4 dark:bg-gray-700">
+                                                    <h4 class="text-md font-medium text-gray-900 dark:text-white mb-4">Preferred Payment</h4>
+                                                    <div class="flex items-center">
+                                                        <i class="fab fa-cc-visa text-2xl text-blue-600 mr-2"></i>
+                                                        <div>
+                                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Visa ending in 4242</p>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400">Expires 04/2025</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Addresses -->
+                                            <div class="col-span-1">
+                                                <div class="bg-gray-50 rounded-lg p-4 dark:bg-gray-700">
+                                                    <div class="flex justify-between items-center mb-4">
+                                                        <h4 class="text-md font-medium text-gray-900 dark:text-white">Address Book</h4>
+                                                        <button class="text-xs bg-indigo-600 text-white py-1 px-2 rounded hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600">
+                                                            <i class="fas fa-plus mr-1"></i> Add Address
+                                                        </button>
+                                                    </div>
+                                                    
+                                                    <div class="space-y-4">
+                                                        <div class="border border-gray-200 rounded-lg p-3 dark:border-gray-600">
+                                                            <div class="flex justify-between">
+                                                                <span class="text-sm font-medium text-gray-900 dark:text-white">Primary Address</span>
+                                                                <div class="flex space-x-2">
+                                                                    <button class="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                                                                        <i class="fas fa-edit"></i>
+                                                                    </button>
+                                                                    <button class="text-xs text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <p class="text-sm text-gray-600 mt-1 dark:text-gray-300">
+                                                                123 Main St<br>
+                                                                Apt 4B<br>
+                                                                New York, NY 10001<br>
+                                                                United States
+                                                            </p>
+                                                        </div>
+                                                        
+                                                        <div class="border border-gray-200 rounded-lg p-3 dark:border-gray-600">
+                                                            <div class="flex justify-between">
+                                                                <span class="text-sm font-medium text-gray-900 dark:text-white">Shipping Address</span>
+                                                                <div class="flex space-x-2">
+                                                                    <button class="text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300">
+                                                                        <i class="fas fa-edit"></i>
+                                                                    </button>
+                                                                    <button class="text-xs text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <p class="text-sm text-gray-600 mt-1 dark:text-gray-300">
+                                                                456 Commerce Ave<br>
+                                                                Warehouse #12<br>
+                                                                Brooklyn, NY 11201<br>
+                                                                United States
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Orders Tab Content (Hidden by default) -->
+                                    <div id="orders-tab" class="customer-tab-content hidden">
+                                        <div class="bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <div class="p-4 border-b border-gray-200 dark:border-gray-600">
+                                                <h4 class="text-md font-medium text-gray-900 dark:text-white">Order History</h4>
+                                            </div>
+                                            <div class="divide-y divide-gray-200 dark:divide-gray-600">
+                                                <!-- Sample Order 1 -->
+                                                <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                    <div class="flex items-center justify-between">
+                                                        <div class="flex items-center space-x-4">
+                                                            <div class="flex-shrink-0">
+                                                                <div class="h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center dark:bg-indigo-900">
+                                                                    <i class="fas fa-receipt text-indigo-600 dark:text-indigo-300"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <p class="text-sm font-medium text-gray-900 dark:text-white">#ORD-2023-024</p>
+                                                                <p class="text-xs text-gray-500 dark:text-gray-300">2 days ago • 3 items</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <p class="text-sm font-medium text-gray-900 dark:text-white">$189.99</p>
+                                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                                                Completed
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Sample Order 2 -->
+                                                <div class="p-4 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                                    <div class="flex items-center justify-between">
+                                                        <div class="flex items-center space-x-4">
+                                                            <div class="flex-shrink-0">
+                                                                <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center dark:bg-blue-900">
+                                                                    <i class="fas fa-receipt text-blue-600 dark:text-blue-300"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <p class="text-sm font-medium text-gray-900 dark:text-white">#ORD-2023-023</p>
+                                                                <p class="text-xs text-gray-500 dark:text-gray-300">1 week ago • 1 item</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="text-right">
+                                                            <p class="text-sm font-medium text-gray-900 dark:text-white">$59.99</p>
+                                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                                                Completed
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- More orders would be listed here -->
+                                            </div>
+                                            <div class="p-4 border-t border-gray-200 dark:border-gray-600 text-center">
+                                                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">View all orders</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Activity Tab Content -->
+                                    <div id="activity-tab" class="customer-tab-content hidden">
+                                        <div class="bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <div class="p-4 border-b border-gray-200 dark:border-gray-600">
+                                                <h4 class="text-md font-medium text-gray-900 dark:text-white">Recent Activity</h4>
+                                            </div>
+                                            <div class="divide-y divide-gray-200 dark:divide-gray-600">
+                                                <div class="p-4">
+                                                    <div class="flex space-x-3">
+                                                        <div class="flex-shrink-0">
+                                                            <div class="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center dark:bg-green-900">
+                                                                <i class="fas fa-shopping-cart text-green-600 dark:text-green-300"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="min-w-0 flex-1">
+                                                            <p class="text-sm text-gray-800 dark:text-gray-200">
+                                                                Placed order <span class="font-medium">#ORD-2023-024</span> for $189.99
+                                                            </p>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">2 days ago</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-4">
+                                                    <div class="flex space-x-3">
+                                                        <div class="flex-shrink-0">
+                                                            <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center dark:bg-blue-900">
+                                                                <i class="fas fa-sign-in-alt text-blue-600 dark:text-blue-300"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="min-w-0 flex-1">
+                                                            <p class="text-sm text-gray-800 dark:text-gray-200">
+                                                                Logged in from <span class="font-medium">New York, US</span> (Chrome on Windows)
+                                                            </p>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">3 days ago</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-4">
+                                                    <div class="flex space-x-3">
+                                                        <div class="flex-shrink-0">
+                                                            <div class="h-10 w-10 rounded-full bg-purple-100 flex items-center justify-center dark:bg-purple-900">
+                                                                <i class="fas fa-comment text-purple-600 dark:text-purple-300"></i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="min-w-0 flex-1">
+                                                            <p class="text-sm text-gray-800 dark:text-gray-200">
+                                                                Left a <span class="font-medium">5-star review</span> for "Wireless Headphones"
+                                                            </p>
+                                                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">1 week ago</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="p-4 border-t border-gray-200 dark:border-gray-600 text-center">
+                                                <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300">View all activity</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Other tabs would be implemented similarly -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse dark:bg-gray-800">
+                    <button type="button" class="close-modal w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm dark:bg-indigo-700 dark:hover:bg-indigo-600">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.classList.remove('fa-sun');
+            themeIcon.classList.add('fa-moon');
+        }
+
+        themeToggle.addEventListener('click', function() {
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                }
+            }
+        });
+
+        // Sales Chart
+        const salesCtx = document.getElementById('salesChart').getContext('2d');
+        const salesChart = new Chart(salesCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [{
+                    label: 'Sales',
+                    data: [6500, 5900, 8000, 8100, 5600, 5500, 7000],
+                    backgroundColor: 'rgba(79, 70, 229, 0.05)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false,
+                            color: function(context) {
+                                if (context.tick.value === 0) {
+                                    return 'rgba(0, 0, 0, 0)';
+                                }
+                                return 'rgba(229, 231, 235, 1)';
+                            }
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Customer Chart
+        const customerCtx = document.getElementById('customerChart').getContext('2d');
+        const customerChart = new Chart(customerCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                datasets: [
+                    {
+                        label: 'New Customers',
+                        data: [45, 59, 80, 81, 56, 55, 40],
+                        backgroundColor: 'rgba(79, 70, 229, 0.7)',
+                        borderColor: 'rgba(79, 70, 229, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Returning Customers',
+                        data: [35, 42, 60, 65, 50, 48, 35],
+                        backgroundColor: 'rgba(99, 102, 241, 0.5)',
+                        borderColor: 'rgba(99, 102, 241, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#6B7280'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false,
+                            color: function(context) {
+                                if (context.tick.value === 0) {
+                                    return 'rgba(0, 0, 0, 0)';
+                                }
+                                return 'rgba(229, 231, 235, 1)';
+                            }
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#6B7280'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Customer modal functionality
+        document.querySelectorAll('.view-customer').forEach(button => {
+            button.addEventListener('click', function() {
+                const customerId = this.getAttribute('data-customer-id');
+                document.getElementById('customerModal').classList.remove('hidden');
+                // Here you would typically fetch customer data based on customerId
+                // and populate the modal with the actual data
+            });
+        });
+
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('customerModal').classList.add('hidden');
+            });
+        });
+
+        // Customer tab switching
+        document.querySelectorAll('.customer-tab').forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all tabs
+                document.querySelectorAll('.customer-tab').forEach(t => {
+                    t.classList.remove('active', 'border-indigo-500', 'text-indigo-600', 'dark:text-indigo-400', 'dark:border-indigo-400');
+                    t.classList.add('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300', 'dark:text-gray-400', 'dark:hover:text-gray-300');
+                });
+                
+                // Add active class to clicked tab
+                this.classList.add('active', 'border-indigo-500', 'text-indigo-600', 'dark:text-indigo-400', 'dark:border-indigo-400');
+                this.classList.remove('border-transparent', 'text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300', 'dark:text-gray-400', 'dark:hover:text-gray-300');
+                
+                // Hide all tab contents
+                document.querySelectorAll('.customer-tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                });
+                
+                // Show the selected tab contentn
+                const tabId = this.textContent.trim().toLowerCase() + '-tab';
+                document.getElementById(tabId).classList.remove('hidden');
+            });
+        });
+
+        // PWA Installation Prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the mini-infobar from appearing on mobile
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+            // Show install button if you want
+            console.log('PWA installation available');
+        });
+    </script>
+</body>
+</html>

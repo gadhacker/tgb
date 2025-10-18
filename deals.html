@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern E-Commerce | Shop the Latest Trends</title>
+    <meta name="description" content="Discover amazing products at unbeatable prices. Shop the latest trends in fashion, electronics, and home goods.">
+    <meta name="theme-color" content="#0ea5e9">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@700&display=swap');
+        
+        :root {
+            --color-primary: #0ea5e9;
+            --color-primary-light: #38bdf8;
+            --color-primary-dark: #0369a1;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(56,189,248,0.1) 0%, rgba(14,165,233,0.05) 100%);
+        }
+        
+        .dark .hero-gradient {
+            background: linear-gradient(135deg, rgba(14,165,233,0.1) 0%, rgba(2,132,199,0.05) 100%);
+        }
+        
+        /* Modern Glass Morphism Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+        }
+        
+        .dark .glass-card {
+            background: rgba(17, 24, 39, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Kinetic Typography */
+        .kinetic-text {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .kinetic-text span {
+            position: relative;
+            display: inline-block;
+            animation: kinetic 0.5s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes kinetic {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Modern Typewriter Effect */
+        .typewriter {
+            border-right: 3px solid;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            font-weight: 500;
+            color: var(--color-primary);
+        }
+        
+        /* 3D/Isometric Text */
+        .text-3d {
+            text-shadow: 
+                1px 1px 0 #999,
+                2px 2px 0 #999,
+                3px 3px 0 #999,
+                4px 4px 0 #999;
+            transform: rotateX(20deg) rotateY(-10deg);
+            transform-style: preserve-3d;
+            color: #111827;
+        }
+        
+        .dark .text-3d {
+            color: #f3f4f6;
+        }
+        
+        /* Modern Glitch Text */
+        .glitch {
+            position: relative;
+            font-weight: 700;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+        
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0) }
+            10% { clip: rect(112px, 9999px, 76px, 0) }
+            20% { clip: rect(85px, 9999px, 77px, 0) }
+            30% { clip: rect(27px, 9999px, 97px, 0) }
+            40% { clip: rect(64px, 9999px, 98px, 0) }
+            50% { clip: rect(61px, 9999px, 85px, 0) }
+            60% { clip: rect(99px, 9999px, 114px, 0) }
+            70% { clip: rect(34px, 9999px, 115px, 0) }
+            80% { clip: rect(98px, 9999px, 129px, 0) }
+            90% { clip: rect(43px, 9999px, 96px, 0) }
+            100% { clip: rect(82px, 9999px, 64px, 0) }
+        }
+        
+        @keyframes glitch-anim2 {
+            0% { clip: rect(65px, 9999px, 119px, 0) }
+            10% { clip: rect(79px, 9999px, 66px, 0) }
+            20% { clip: rect(126px, 9999px, 100px, 0) }
+            30% { clip: rect(104px, 9999px, 115px, 0) }
+            40% { clip: rect(65px, 9999px, 52px, 0) }
+            50% { clip: rect(32px, 9999px, 35px, 0) }
+            60% { clip: rect(102px, 9999px, 80px, 0) }
+            70% { clip: rect(100px, 9999px, 83px, 0) }
+            80% { clip: rect(80px, 9999px, 103px, 0) }
+            90% { clip: rect(79px, 9999px, 107px, 0) }
+            100% { clip: rect(116px, 9999px, 41px, 0) }
+        }
+        
+        /* Modern Handwriting Effect */
+        .handwriting {
+            position: relative;
+            display: inline-block;
+            font-weight: 500;
+        }
+        
+        .handwriting::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: currentColor;
+            transform-origin: left;
+            transform: scaleX(0);
+            animation: handwriting 1.5s ease-in-out forwards;
+        }
+        
+        @keyframes handwriting {
+            to {
+                transform: scaleX(1);
+            }
+        }
+        
+        /* Modern Text Reveal */
+        .text-reveal {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        
+        .text-reveal::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            transform: translateX(-100%);
+            animation: textReveal 1.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        }
+        
+        .dark .text-reveal::after {
+            background: #1f2937;
+        }
+        
+        @keyframes textReveal {
+            to {
+                transform: translateX(101%);
+            }
+        }
+        
+        /* Modern Bounce Animation */
+        .bounce-text span {
+            display: inline-block;
+            animation: bounce 0.8s ease infinite alternate;
+        }
+        
+        @keyframes bounce {
+            to {
+                transform: translateY(-8px);
+                text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+        }
+        
+        /* Modern Marquee Text */
+        .marquee {
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+            animation: marquee 15s linear infinite;
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0) }
+            100% { transform: translateX(-50%) }
+        }
+        
+        /* Modern Morphing Text */
+        .morph-text {
+            position: relative;
+            display: inline-block;
+            height: 1.5em;
+        }
+        
+        .morph-text span {
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            animation: morph 8s infinite;
+            font-weight: 500;
+        }
+        
+        .morph-text span:nth-child(2) {
+            animation-delay: 2s;
+        }
+        
+        .morph-text span:nth-child(3) {
+            animation-delay: 4s;
+        }
+        
+        .morph-text span:nth-child(4) {
+            animation-delay: 6s;
+        }
+        
+        @keyframes morph {
+            0% { opacity: 0; transform: translateY(-20px) }
+            5% { opacity: 1; transform: translateY(0) }
+            20% { opacity: 1; transform: translateY(0) }
+            25% { opacity: 0; transform: translateY(20px) }
+            100% { opacity: 0; transform: translateY(20px) }
+        }
+        
+        /* Modern Neon Glow */
+        .neon-text {
+            color: #fff;
+            text-shadow: 
+                0 0 5px #fff,
+                0 0 10px #fff,
+                0 0 20px var(--color-primary),
+                0 0 40px var(--color-primary),
+                0 0 80px var(--color-primary);
+            animation: neon-flicker 1.5s infinite alternate;
+        }
+        
+        @keyframes neon-flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow: 
+                    0 0 5px #fff,
+                    0 0 10px #fff,
+                    0 0 20px var(--color-primary),
+                    0 0 40px var(--color-primary),
+                    0 0 80px var(--color-primary);
+            }
+            20%, 24%, 55% {        
+                text-shadow: none;
+            }
+        }
+        
+        /* Modern Liquid Text */
+        .liquid-text {
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+        }
+        
+        .liquid-text::before, .liquid-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .liquid-text::before {
+            color: var(--color-primary);
+            animation: liquid 3s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        .liquid-text::after {
+            color: var(--color-primary-light);
+            animation: liquid 3s ease-in-out infinite reverse;
+            z-index: -2;
+        }
+        
+        @keyframes liquid {
+            0%, 100% {
+                clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 54% 60%, 70% 61%, 84% 59%, 100% 52%, 100% 100%, 0% 100%);
+            }
+            50% {
+                clip-path: polygon(0% 60%, 16% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100%);
+            }
+        }
+        
+        /* Modern Product Card Animations */
+        .product-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.03) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .product-card .product-image {
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        /* Modern Floating Animation */
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .float-reverse {
+            animation: float-reverse 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) }
+            50% { transform: translateY(-20px) }
+        }
+        
+        @keyframes float-reverse {
+            0%, 100% { transform: translateY(0) }
+            50% { transform: translateY(20px) }
+        }
+        
+        /* Modern Blob Background */
+        .blob {
+            filter: blur(40px);
+            opacity: 0.3;
+            animation: float 12s ease-in-out infinite;
+            border-radius: 50%;
+        }
+        
+        .blob-2 {
+            animation-delay: 2s;
+            animation-name: float-reverse;
+        }
+        
+        .blob-3 {
+            animation-delay: 4s;
+        }
+        
+        /* Modern Nav Link Animation */
+        .nav-link {
+            position: relative;
+            padding: 8px 12px;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease, background-color 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Modern Button Hover Effect */
+        .btn-hover {
+            transition: all 0.3s ease;
+            transform: translateY(0);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--color-primary), var(--color-primary-light));
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+        
+        .btn-hover:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .btn-hover:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+        }
+        
+        /* Modern Feature Card Animation */
+        .feature-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .feature-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card .icon-container {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover .icon-container {
+            transform: rotateY(180deg);
+            background: linear-gradient(45deg, var(--color-primary), var(--color-primary-light));
+        }
+        
+        /* Modern Testimonial Card */
+        .testimonial-card {
+            transition: all 0.3s ease;
+            border-radius: 12px;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Modern Newsletter Form */
+        .newsletter-input {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .newsletter-input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.3);
+        }
+        
+        /* Modern Back to Top Button */
+        #back-to-top {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        #back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Modern Footer Links */
+        .footer-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: currentColor;
+            transition: width 0.3s ease;
+        }
+        
+        .footer-link:hover::after {
+            width: 100%;
+        }
+        
+        /* Modern Social Icons */
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: var(--color-primary);
+        }
+        
+        /* Modern Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-primary);
+            border-radius: 4px;
+        }
+        
+        .dark ::-webkit-scrollbar-track {
+            background: #1f2937;
+        }
+        
+        .dark ::-webkit-scrollbar-thumb {
+            background: var(--color-primary-dark);
+        }
+        
+        /* Modern Loading Animation */
+        .loader {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(14, 165, 233, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--color-primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+    <!-- Navigation -->
+    <nav class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="text-2xl font-bold text-primary-600 dark:text-primary-400">ShopNest</span>
+                    </div>
+                    <div class="hidden md:ml-10 md:flex md:space-x-6">
+                        <a href="#home" class="nav-link text-gray-900 dark:text-white px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#products" class="nav-link text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 px-3 py-2 text-sm font-medium">Products</a>
+                        <a href="#features" class="nav-link text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 px-3 py-2 text-sm font-medium">Features</a>
+                        <a href="#testimonials" class="nav-link text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 px-3 py-2 text-sm font-medium">Testimonials</a>
+                        <a href="#contact" class="nav-link text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-4">
+                    <button class="p-2 text-gray-400 rounded-full hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none relative transition-all hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <button class="p-2 text-gray-400 rounded-full hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none relative transition-all hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-heart"></i>
+                        <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-red-500"></span>
+                    </button>
+                    <button class="p-2 text-gray-400 rounded-full hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none relative transition-all hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="absolute top-0 right-0 h-2 w-2 rounded-full bg-primary-600"></span>
+                    </button>
+                    <button id="theme-toggle" class="p-2 text-gray-400 rounded-full hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none transition-all hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    <a href="user.html" class="ml-3 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 btn-hover">
+                        Sign In
+                    </a>
+                </div>
+                <div class="-mr-2 flex items-center md:hidden">
+                    <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none" id="mobile-menu-button">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div class="hidden md:hidden transition-all duration-300" id="mobile-menu">
+            <div class="pt-2 pb-3 space-y-1">
+                <a href="#home" class="block border-l-4 border-primary-500 bg-primary-50 dark:bg-gray-700 py-2 pl-3 pr-4 text-base font-medium text-primary-700 dark:text-primary-400">Home</a>
+                <a href="#products" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300">Products</a>
+                <a href="#features" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300">Features</a>
+                <a href="#testimonials" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300">Testimonials</a>
+                <a href="#contact" class="block border-l-4 border-transparent py-2 pl-3 pr-4 text-base font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:border-gray-300">Contact</a>
+            </div>
+            <div class="pt-4 pb-3 border-t border-gray-200 dark:border-gray-700">
+                <div class="flex items-center px-5">
+                    <div class="flex-shrink-0">
+                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                    </div>
+                    <div class="ml-3">
+                        <div class="text-base font-medium text-gray-800 dark:text-white">Guest User</div>
+                        <div class="text-sm font-medium text-gray-500 dark:text-gray-400">guest@example.com</div>
+                    </div>
+                    <button class="ml-auto flex-shrink-0 bg-white dark:bg-gray-700 p-1 rounded-full text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 focus:outline-none">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                </div>
+                <div class="mt-3 space-y-1 px-2">
+                    <a href="user.html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient relative overflow-hidden">
+        <div class="absolute w-full h-full">
+            <div class="blob absolute w-64 h-64 rounded-full bg-primary-400 top-20 left-20"></div>
+            <div class="blob blob-2 absolute w-96 h-96 rounded-full bg-purple-400 bottom-20 right-20"></div>
+            <div class="blob blob-3 absolute w-80 h-80 rounded-full bg-blue-400 top-1/2 left-1/2"></div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-32 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left" data-aos="fade-right" data-aos-duration="800">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">
+                        <span class="block kinetic-text">
+                            <span style="animation-delay: 0.1s">Shop</span>
+                            <span style="animation-delay: 0.2s">the</span>
+                            <span style="animation-delay: 0.3s">Latest</span>
+                        </span>
+                        <span class="block text-primary-600 dark:text-primary-400 mt-2">
+                            <span class="liquid-text" data-text="Trending Products">Trending Products</span>
+                        </span>
+                    </h1>
+                    <p class="mt-6 text-lg text-gray-600 dark:text-gray-300 max-w-lg text-reveal">
+                        Discover amazing products at unbeatable prices. Our curated collection brings you the best in fashion, electronics, and home goods.
+                    </p>
+                    <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                        <a href="#products" class="px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700 md:py-4 md:text-lg md:px-10 btn-hover transition-all duration-300 transform hover:scale-105">
+                            <span class="bounce-text">
+                                <span style="animation-delay: 0.1s">S</span>
+                                <span style="animation-delay: 0.2s">h</span>
+                                <span style="animation-delay: 0.3s">o</span>
+                                <span style="animation-delay: 0.4s">p</span>
+                                <span style="animation-delay: 0.5s"> </span>
+                                <span style="animation-delay: 0.6s">N</span>
+                                <span style="animation-delay: 0.7s">o</span>
+                                <span style="animation-delay: 0.8s">w</span>
+                            </span>
+                        </a>
+                        <a href="#features" class="px-8 py-3 border border-primary-500 text-base font-medium rounded-md text-primary-600 dark:text-primary-400 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 md:py-4 md:text-lg md:px-10 btn-hover transition-all duration-300 transform hover:scale-105">
+                            <span class="handwriting">Learn More</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative" data-aos="fade-left" data-aos-duration="800">
+                    <div class="relative w-full h-96 md:h-auto">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80" alt="Hero product" class="absolute w-full h-full object-contain object-center float product-image">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80" alt="Hero product" class="absolute w-1/2 h-1/2 object-contain object-left-bottom float-reverse product-image" style="bottom: -20px; left: -20px;">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Hero product" class="absolute w-1/3 h-1/3 object-contain object-right-top float product-image" style="top: -20px; right: -20px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="bg-white dark:bg-gray-900 py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center" data-aos="fade-up">
+                <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                    <span class="text-3d">Shop by Category</span>
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto">
+                    <span id="typewriter" class="typewriter"></span>
+                </p>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="group relative">
+                    <div class="w-full min-h-80 bg-gray-200 dark:bg-gray-700 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none transition-all duration-300">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80" alt="Electronics" class="w-full h-full object-center object-cover lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                                <a href="#" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                    <span aria-hidden="true" class="absolute inset-0"></span>
+                                    Electronics
+                                </a>
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Latest gadgets</p>
+                        </div>
+                        <p class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">Shop now</p>
+                    </div>
+                </div>
+
+                <div class="group relative">
+                    <div class="w-full min-h-80 bg-gray-200 dark:bg-gray-700 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none transition-all duration-300">
+                        <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Fashion" class="w-full h-full object-center object-cover lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                                <a href="#" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                    <span aria-hidden="true" class="absolute inset-0"></span>
+                                    Fashion
+                                </a>
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Trendy outfits</p>
+                        </div>
+                        <p class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">Shop now</p>
+                    </div>
+                </div>
+
+                <div class="group relative">
+                    <div class="w-full min-h-80 bg-gray-200 dark:bg-gray-700 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none transition-all duration-300">
+                        <img src="https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Home & Garden" class="w-full h-full object-center object-cover lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                                <a href="#" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                    <span aria-hidden="true" class="absolute inset-0"></span>
+                                    Home & Garden
+                                </a>
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Stylish living</p>
+                        </div>
+                        <p class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">Shop now</p>
+                    </div>
+                </div>
+
+                <div class="group relative">
+                    <div class="w-full min-h-80 bg-gray-200 dark:bg-gray-700 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none transition-all duration-300">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" alt="Beauty" class="w-full h-full object-center object-cover lg:w-full lg:h-full transition-transform duration-500 group-hover:scale-105">
+                    </div>
+                    <div class="mt-4 flex justify-between">
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">
+                                <a href="#" class="hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+                                    <span aria-hidden="true" class="absolute inset-0"></span>
+                                    Beauty
+                                </a>
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Self care essentials</p>
+                        </div>
+                        <p class="text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">Shop now</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="products" class="bg-gray-50 dark:bg-gray-800 py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center" data-aos="fade-up">
+                <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                    <span class="glitch" data-text="Featured Products">Featured Products</span>
+                </h2>
+                <div class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto">
+                    <div class="morph-text">
+                        <span>Check out our most popular products</span>
+                        <span>Discover this season's hottest items</span>
+                        <span>Shop our customer favorites</span>
+                        <span>Best selling products this week</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4">
+                <div class="product-card bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-64 w-full overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80" alt="Wireless Headphones" class="w-full h-full object-cover product-image">
+                        <div class="absolute top-2 right-2">
+                            <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-2 left-2 bg-primary-600 text-white text-xs font-bold px-2 py-1 rounded">
+                            NEW
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Wireless Headphones</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-gray-300 dark:text-gray-500"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(128)</span>
+                        </div>
+                        <div class="mt-2 flex justify-between items-center">
+                            <p class="text-lg font-bold text-gray-900 dark:text-white">$129.99</p>
+                            <button class="px-3 py-1 bg-primary-600 text-white text-sm font-medium rounded-md hover:bg-primary-700 focus:outline-none transition-colors btn-hover">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-64 w-full overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1099&q=80" alt="Smart Watch" class="w-full h-full object-cover product-image">
+                        <div class="absolute top-2 right-2">
+                            <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-heart text-red-500"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
+                            SALE
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Smart Watch</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star-half-alt text-yellow-400"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(256)</span>
+                        </div>
+                        <div class="mt-2 flex justify-between items-center">
+                            <div>
+                                <span class="text-sm font-medium text-gray-500 dark:text-gray-400 line-through mr-2">$199.99</span>
+                                <span class="text-lg font-bold text-gray-900 dark:text-white">$149.99</span>
+                            </div>
+                            <button class="px-3 py-1 bg-primary-600 text-white text-sm font-medium rounded-md hover:bg-primary-700 focus:outline-none transition-colors btn-hover">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative h-64 w-full overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Bluetooth Speaker" class="w-full h-full object-cover product-image">
+                        <div class="absolute top-2 right-2">
+                            <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Bluetooth Speaker</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(512)</span>
+                        </div>
+                        <div class="mt-2 flex justify-between items-center">
+                            <p class="text-lg font-bold text-gray-900 dark:text-white">$89.99</p>
+                            <button class="px-3 py-1 bg-primary-600 text-white text-sm font-medium rounded-md hover:bg-primary-700 focus:outline-none transition-colors btn-hover">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card bg-white dark:bg-gray-900 rounded-lg shadow-md overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative h-64 w-full overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="Running Shoes" class="w-full h-full object-cover product-image">
+                        <div class="absolute top-2 right-2">
+                            <button class="p-2 bg-white dark:bg-gray-800 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-heart text-gray-400 hover:text-red-500"></i>
+                            </button>
+                        </div>
+                        <div class="absolute bottom-2 left-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">
+                            BESTSELLER
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white hover:text-primary-600 dark:hover:text-primary-400 transition-colors">Running Shoes</h3>
+                        <div class="flex items-center mt-1">
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="far fa-star text-yellow-400"></i>
+                            </div>
+                            <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">(64)</span>
+                        </div>
+                        <div class="mt-2 flex justify-between items-center">
+                            <p class="text-lg font-bold text-gray-900 dark:text-white">$79.99</p>
+                            <button class="px-3 py-1 bg-primary-600 text-white text-sm font-medium rounded-md hover:bg-primary-700 focus:outline-none transition-colors btn-hover">
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center" data-aos="fade-up">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 btn-hover">
+                    <span class="marquee">View All Products &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;View All Products &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="bg-white dark:bg-gray-900 py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:text-center" data-aos="fade-up">
+                <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                    <span id="particle-text">Why Choose Us</span>
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 lg:mx-auto">
+                    We provide the best shopping experience for our customers
+                </p>
+            </div>
+
+            <div class="mt-20">
+                <div class="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-3">
+                    <div class="feature-card bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white icon-container">
+                            <i class="fas fa-truck text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Fast & Free Shipping</h3>
+                            <p class="mt-2 text-base text-gray-500 dark:text-gray-400">
+                                Free shipping on all orders over $50. Get your products delivered quickly to your doorstep.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white icon-container">
+                            <i class="fas fa-undo text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Easy Returns</h3>
+                            <p class="mt-2 text-base text-gray-500 dark:text-gray-400">
+                                Not satisfied? No problem. Return your items within 30 days for a full refund.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white icon-container">
+                            <i class="fas fa-lock text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Secure Payment</h3>
+                            <p class="mt-2 text-base text-gray-500 dark:text-gray-400">
+                                Your payment information is processed securely. We don't store your credit card details.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="400">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white icon-container">
+                            <i class="fas fa-headset text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">24/7 Support</h3>
+                            <p class="mt-2 text-base text-gray-500 dark:text-gray-400">
+                                Our customer service team is available around the clock to assist you with any questions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="500">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white icon-container">
+                            <i class="fas fa-medal text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Quality Guarantee</h3>
+                            <p class="mt-2 text-base text-gray-500 dark:text-gray-400">
+                                We carefully select our products to ensure the highest quality standards.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="feature-card bg-gray-50 dark:bg-gray-800 p-8 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="600">
+                        <div class="flex items-center justify-center h-12 w-12 rounded-md bg-primary-500 text-white icon-container">
+                            <i class="fas fa-percent text-xl"></i>
+                        </div>
+                        <div class="mt-5">
+                            <h3 class="text-lg font-medium text-gray-900 dark:text-white">Member Discounts</h3>
+                            <p class="mt-2 text-base text-gray-500 dark:text-gray-400">
+                                Join our loyalty program and enjoy exclusive discounts and early access to sales.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="bg-gray-50 dark:bg-gray-800 py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center" data-aos="fade-up">
+                <h2 class="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                    What Our Customers Say
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-gray-500 dark:text-gray-400 mx-auto neon-text">
+                    Don't just take our word for it - hear from our satisfied customers
+                </p>
+            </div>
+
+            <div class="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <div class="testimonial-card bg-white dark:bg-gray-900 p-8 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Sarah Johnson">
+                        </div>
+                        <div class="ml-4">
+                            <div class="text-lg font-medium text-gray-900 dark:text-white">Sarah Johnson</div>
+                            <div class="flex mt-1">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-600 dark:text-gray-300">
+                            "I've been shopping here for years and the quality never disappoints. The customer service is exceptional and the shipping is always fast."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-white dark:bg-gray-900 p-8 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="Michael Chen">
+                        </div>
+                        <div class="ml-4">
+                            <div class="text-lg font-medium text-gray-900 dark:text-white">Michael Chen</div>
+                            <div class="flex mt-1">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star-half-alt text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-600 dark:text-gray-300">
+                            "The selection of products is amazing and the prices are very competitive. I especially love their electronics section with the latest gadgets."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="testimonial-card bg-white dark:bg-gray-900 p-8 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <img class="h-12 w-12 rounded-full" src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80" alt="Emily Rodriguez">
+                        </div>
+                        <div class="ml-4">
+                            <div class="text-lg font-medium text-gray-900 dark:text-white">Emily Rodriguez</div>
+                            <div class="flex mt-1">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <p class="text-gray-600 dark:text-gray-300">
+                            "Their return policy is the best I've seen. When I had an issue with a product, they resolved it immediately with no hassle. Highly recommend!"
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section id="contact" class="bg-primary-700 py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center" data-aos="fade-up">
+                <h2 class="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+                    Stay Updated
+                </h2>
+                <p class="mt-4 max-w-2xl text-xl text-primary-100 mx-auto">
+                    Subscribe to our newsletter for the latest products, deals, and news
+                </p>
+            </div>
+
+            <div class="mt-8 max-w-md mx-auto" data-aos="fade-up" data-aos-delay="100">
+                <form class="sm:flex">
+                    <label for="email-address" class="sr-only">Email address</label>
+                    <input id="email-address" name="email" type="email" autocomplete="email" required class="w-full px-5 py-3 placeholder-gray-500 focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 focus:outline-none rounded-md newsletter-input" placeholder="Enter your email">
+                    <div class="mt-3 rounded-md shadow sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+                        <button type="submit" class="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-primary-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white btn-hover">
+                            Subscribe
+                        </button>
+                    </div>
+                </form>
+                <p class="mt-3 text-sm text-primary-100">
+                    We care about your data. Read our
+                    <a href="#" class="text-white font-medium underline hover:text-primary-100 transition-colors">
+                        Privacy Policy
+                    </a>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-900">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 tracking-wider uppercase">Shop</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">All Products</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">New Arrivals</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Featured</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Deals</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 tracking-wider uppercase">Support</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Contact Us</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">FAQs</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Shipping</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Returns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 tracking-wider uppercase">Company</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">About Us</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Blog</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Careers</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Press</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-sm font-semibold text-gray-500 dark:text-gray-400 tracking-wider uppercase">Legal</h3>
+                    <ul class="mt-4 space-y-4">
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Privacy</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Terms</a></li>
+                        <li><a href="#" class="text-base text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white footer-link">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8 md:flex md:items-center md:justify-between">
+                <div class="flex space-x-6 md:order-2">
+                    <a href="#" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 social-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 social-icon">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+                <p class="mt-8 text-base text-gray-500 dark:text-gray-400 md:mt-0 md:order-1">
+                    &copy; 2023 ShopNest. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 p-3 bg-primary-600 text-white rounded-full shadow-lg opacity-0 invisible transition-all duration-300 transform translate-y-4">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS animations
+        AOS.init({
+            once: true,
+            duration: 800,
+            easing: 'ease-out-quart'
+        });
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.setItem('theme', html.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+                backToTopButton.classList.add('opacity-100', 'visible', 'translate-y-0');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible', 'translate-y-0');
+                backToTopButton.classList.add('opacity-0', 'invisible', 'translate-y-4');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Typewriter effect
+        const typewriter = new Typed('#typewriter', {
+            strings: [
+                "Browse our wide selection of products",
+                "Discover amazing deals and discounts",
+                "Find exactly what you're looking for",
+                "Shop with confidence and ease"
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            showCursor: true,
+            cursorChar: '|',
+            autoInsertCss: true
+        });
+
+        // Kinetic typography animation
+        const kineticTexts = document.querySelectorAll('.kinetic-text span');
+        kineticTexts.forEach((span, index) => {
+            span.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Bounce text animation
+        const bounceTexts = document.querySelectorAll('.bounce-text span');
+        bounceTexts.forEach((span, index) => {
+            span.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // PWA install prompt (simplified example)
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            console.log('PWA install prompt available');
+            // You would typically save the event and show a custom install button
+        });
+
+        // Particle text effect
+        const particleText = document.getElementById('particle-text');
+        if (particleText) {
+            // Initialize Three.js for particle effect
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, particleText.offsetWidth / particleText.offsetHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true });
+            renderer.setSize(particleText.offsetWidth, particleText.offsetHeight);
+            particleText.appendChild(renderer.domElement);
+
+            // Create particles
+            const particlesGeometry = new THREE.BufferGeometry();
+            const particlesCount = 500;
+            
+            const posArray = new Float32Array(particlesCount * 3);
+            
+            for(let i = 0; i < particlesCount * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 5;
+            }
+            
+            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            const particlesMaterial = new THREE.PointsMaterial({
+                size: 0.02,
+                color: 0x0ea5e9
+            });
+            
+            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+            scene.add(particlesMesh);
+            
+            camera.position.z = 2;
+            
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                particlesMesh.rotation.x += 0.001;
+                particlesMesh.rotation.y += 0.001;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+        }
+    </script>
+</body>
+</html>
